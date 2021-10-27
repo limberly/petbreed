@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{%static 'polls/style.css'%}">
+    <title>Polls</title>
+</head>
+
+<body>
+    <div class="form">
+        <h1 class="form-heading">
+            Simple Pet Breed Classifier
+        </h1>
+        <h2 class="form-subheading">
+            Instruction
+        </h2>
+        <ol class="form-instruction">
+            <li>Take a picture with your camera app or download a picture</li>
+            <li>Choose that file on this app</li>
+            <li>Click on "What is this animal?"</li>
+            <li>That's it!</li>
+        </ol>
+
+        <form action="{% url 'polls:index' %}" method="post" enctype="multipart/form-data">
+            {%csrf_token%}
+            <div class="form-label--container">
+                <img style="display: none;" id="output" width="200" alt="Uploaded image">
+                <label class="form-image--label" for="image">Upload Image</label>
+                <label class="form-submit--label" for="submit-image">What is this animal?</label>
+            </div>
+
+            <input onchange="loadFile(event)" class="form-image" type="file" accept="image/*" name="image" id="image">
+
+            <input class="form-submit" type="submit" value="What?" id="submit-image">
+        </form>
+        {% if result %}
+        <p> {{ result }} </p>
+        {% else%}
+        <p>Haven't asked for prediction yet!</p>
+        {% endif %}
+    </div>
+    <script>
+        let loadFile = function (event) {
+            let image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+            image.style.display = 'block';
+        };
+    </script>
+</body>
+
+</html>
