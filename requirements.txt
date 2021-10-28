@@ -204,7 +204,7 @@ sentencepiece==0.1.96
 setuptools==52.0.0
 simplegeneric==0.8.1
 singledispatch==3.4.0.0
-sip==4.19.13
+sip==4.19.8
 six==1.15.0
 sniffio==1.2.0
 snowballstemmer==2.1.0
